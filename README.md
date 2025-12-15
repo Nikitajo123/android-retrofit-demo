@@ -39,3 +39,56 @@ Na GitHubu ima več kot 42.000 GitHub zvezdic, okrog 7.000 forkov, uporablja ga 
 ## Razvoj in vzdrževanje
 
 Retrofit razvija podjetje Square. Knjižnica je aktivno vzdrževana, redno posodabljana in ima 20+ aktivnih razvijalcev, posodobitve so redne. Zaradi velike uporabe v industriji je razvoj stabilen in dolgoročno zagotovljen.
+
+## Uporaba
+
+### HTTP Metode, ki jih podpira Retrofit
+
+| **HTTP Metoda** | **Opis** |
+|-----------------|----------|
+| `@GET` | Pridobivanje podatkov |
+| `@POST` | Ustvarjanje novih podatkov |
+| `@PUT` | Posodabljanje obstoječih podatkov |
+| `@DELETE` | Brisanje podatkov |
+| `@PATCH` | Delna posodobitev podatkov |
+| `@HEAD` | Pridobivanje samo headerjev |
+| `@OPTIONS` | Pridobivanje podprtih metod |
+
+###  Definicija data class za JSON mapping
+
+```kotlin
+data class Post(
+    val userId: Int,
+    val id: Int,
+    val title: String,
+    val body: String
+)
+```
+
+###  Kreiranje API interface z anotacijami
+
+```kotlin
+interface ApiService {
+
+    @GET("posts/{id}")
+    suspend fun getPostById(@Path("id") id: Int): Response<Post>
+
+    @GET("posts")
+    suspend fun getAllPosts(): Response<List<Post>>
+
+    @GET("posts")
+    suspend fun getPostsByUser(@Query("userId") userId: Int): Response<List<Post>>
+
+    @POST("posts")
+    suspend fun createPost(@Body post: Post): Response<Post>
+
+    @PUT("posts/{id}")
+    suspend fun updatePost(
+        @Path("id") id: Int,
+        @Body post: Post
+    ): Response<Post>
+
+    @DELETE("posts/{id}")
+    suspend fun deletePost(@Path("id") id: Int): Response<Unit>
+}
+```
