@@ -219,7 +219,7 @@ private fun handleNetworkError(e: IOException) {
 ![Prikaz error](screenshots/primer6_error.png)
 
 
-
+### Uporaba v lastnem projektu (PlantPal)
 
 Knjižnica Retrofit je uporabljena v lastnem Android projektu PlantPal, kjer služi za pridobivanje podatkov o rastlinah iz zunanjega REST API-ja (Perenual Plant API).
 
